@@ -15,6 +15,7 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'mvn clean install -DskipTests=true '
+                 sh 'docker build -t $REPO/$IMAGE_NAME:$TAG .'
             }
         }
         stage('Build and Push Docker Image') { 
