@@ -39,7 +39,7 @@ pipeline {
                 
                 sh """
                 az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME
-                helm upgrade --install --atomic --wait --timeout 300s apiservice helm-chart/ --namespace aq-dev
+                helm upgrade --install --atomic --wait --timeout 300s apiservice helm-chart/ --namespace aq-dev --set tag=$BUILD_NUMBER
                 """
             }
         }
