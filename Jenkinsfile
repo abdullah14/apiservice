@@ -15,7 +15,10 @@ pipeline {
     stages {
         stage('Maven Build') { 
             steps {
-                sh 'mvn clean install -DskipTests=true '
+                print "Build Number $BUILD_NUMBER"
+                sh """
+                mvn clean install -DskipTests=true
+                """
             }
         }
         stage('Build and Push Docker Image') { 
@@ -26,7 +29,7 @@ pipeline {
                             sh 'az account set -s $AZURE_SUBSCRIPTION_ID'
                             sh 'az acr login -n $CONTAINER_REGISTRY --expose-token'
                             //sh 'az acr build --image $REPO/$IMAGE_NAME:$TAG --registry $CONTAINER_REGISTRY --file Dockerfile . '
-                            sh 'az acr build -t $REPO/$IMAGE_NAME:{{.Run.ID}} -r $CONTAINER_REGISTRY .'
+                            sh 'az acr build -t $REPO/$IMAGE_NAME:$BUILD_NUMBER -r $CONTAINER_REGISTRY .'
                         }
             }            
             
