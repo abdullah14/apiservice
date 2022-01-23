@@ -15,7 +15,10 @@ pipeline {
     stages {
         stage('Maven Build') { 
             steps {
-                sh 'mvn clean install -DskipTests=true '
+                print "Build Number $BUILD_NUMBER"
+                sh """
+                mvn clean install -DskipTests=true
+                """
             }
         }
         stage('Build and Push Docker Image') { 
