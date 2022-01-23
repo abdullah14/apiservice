@@ -2,6 +2,7 @@ pipeline {
     agent any 
     
     environment {
+        CLUSTER_NAME='qayumakscluster'
         AZURE_SUBSCRIPTION_ID='93b29c60-2065-47c7-80a5-3ccfc04f94dd'
         AZURE_TENANT_ID='7d065a49-9136-4db6-90fb-d9763238ada2'
         CONTAINER_REGISTRY='dockerimagesreg'
@@ -12,7 +13,7 @@ pipeline {
     }
 
     stages {
-        stage('Build') { 
+        stage('Maven Build') { 
             steps {
                 sh 'mvn clean install -DskipTests=true '
             }
@@ -30,9 +31,13 @@ pipeline {
             }            
             
         }
-        stage('Test') { 
+        stage('Deploye') { 
             steps {
-                print 'Test'
+                
+                sh """
+                az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME
+                helm upgrade --install --atomic --wait --timeout 300s apiservice helm-chart/ --namespace aq-dev
+                """
             }
         }
     }
