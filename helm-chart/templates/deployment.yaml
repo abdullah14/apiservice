@@ -14,9 +14,11 @@ spec:
       labels:
         app: apiservice
     spec:
+      nodeSelector:
+      	kubernetes.io/os: linux
       containers:
         - name: apiservice
-          image: dockerimagesreg.azurecr.io/apiservice:ca3
+          image: dockerimagesreg.azurecr.io/apiservice:ca5
           ports:
-              containerPort: 8080
+            - containerPort: 8080
               protocol: TCP
