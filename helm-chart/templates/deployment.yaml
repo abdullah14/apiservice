@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apiservice-deployment
+  labels:
+    app: apiservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apiservice
+  template:
+    metadata:
+      labels:
+        app: apiservice
+    spec:
+      containers:
+        - name: apiservice
+          image: dockerimagesreg.azurecr.io/apiservice:ca3
+          ports:
+              containerPort: 8080
+              protocol: TCP
