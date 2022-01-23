@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: apiservice
-          image: dockerimagesreg.azurecr.io/apiservice:ca6
+          image: dockerimagesreg.azurecr.io/apiservice:ca7
           ports:
             - containerPort: 8080
               protocol: TCP
