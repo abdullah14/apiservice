@@ -38,7 +38,7 @@ pipeline {
             steps {
                 
                 sh """
-                az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME
+                az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME --overwrite-existing 
                 helm upgrade --install --atomic --wait --timeout 300s apiservice helm-chart/ --namespace aq-dev --set image.tag=$BUILD_NUMBER
                 """
             }
