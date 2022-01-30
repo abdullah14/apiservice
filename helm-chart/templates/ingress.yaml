@@ -14,4 +14,4 @@ spec:
             name: apiservice-service
             port:
               number: 80
-        pathType: Exact
+        pathType: Prefix
